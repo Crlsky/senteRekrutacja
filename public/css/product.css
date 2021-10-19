@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(32, 33, 56);
+}
+
+.example-wrapper { 
+    margin: 1em auto; 
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+    background-color: rgb(68, 68, 68);
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.product {
+    width: 30%;
+    border: 1px solid red;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
