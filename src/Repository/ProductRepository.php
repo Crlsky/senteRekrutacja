@@ -32,7 +32,32 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findSeachProduct(string $searchTerm): array{
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.SKU LIKE :searchTerm
+                OR pl.name LIKE :searchTerm
+                OR pl.description LIKE :searchTerm')
+            ->leftJoin('App\Entity\ProductLang', 'pl', 'WITH', 'p.id = pl.product')
+            ->setParameter('searchTerm', '%'.$searchTerm.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return int 
+     */
+    public function findNumberOfPages(int $productPerPage): int{
+        $numberOfProducts = count($this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getScalarResult());
+
+        return ceil($numberOfProducts/$productPerPage);
+    }
 
     /*
     public function findOneBySomeField($value): ?Product

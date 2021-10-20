@@ -17,11 +17,64 @@ body {
 
 .product {
     width: 30%;
-    border: 1px solid red;
+    margin-bottom: .5rem;
+    background-color: rgb(177, 175, 175);
 }
 
 .product-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
+}
+
+.product-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-size: large;
+    cursor: pointer;
+}
+
+.product-description {
+    font-size: small;
+}
+
+.product-footer {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.product-price {
+    margin-right: 1rem;
+}
+
+.product-discount {
+    color:rgb(201, 40, 28)
+}
+
+.discount {
+    text-decoration: line-through;
+}
+
+.product-top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-page {
+    margin: 2rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.current-page {
+    text-decoration: underline;
 }

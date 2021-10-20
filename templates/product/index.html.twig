@@ -3,12 +3,36 @@
 {% block title %}Hello ProductController!{% endblock %}
 
 {% block stylesheets %}
-<link href="{{ asset('css/product.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/product.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/modal.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script src="{{ asset('js/product.js') }}"></script>
+    <script src="{{ asset('js/modal.js') }}"></script>
 {% endblock %}
 
 {% block body %}
+<div class="product-modal">
+    <a class="modal-close">X</a>
+    <h1 class="modal-name">asdasdasd</h1>
+    <h3 class="modal-description">asdasd</h3>
+    <img src="" class="modal-img" />
+</div>
 <div class="example-wrapper">
-    <h1>Hello you ugly bitch! ✅</h1>
+    <div class="product-top-bar">
+        <input type="hidden" class="currency" vlaue={{currency}} />
+        <select class="product-per-page">
+            {% for limit in productPerPageLimits %}
+                <option value="{{limit}}" {% if limit == currentLimit %}selected{% endif %}>{{limit}}</option>
+            {% endfor %}
+        </select>
+        <input class="product-search-bar" type="text" />
+    </div>
     <div class="product-container">
         {% for product in products %}
             <div class="product" data-id="{{product.id}}">
@@ -16,9 +40,30 @@
                     <span class="product-id">{{product.id}}</span>
                     <span class="product-sku">{{product.sku}}</span>
                 </div>
-                <span class="product-name">{{product.name}}</span>
+                <div class="product-body">
+                    <span class="product-name">{{product.name}}</span>
+                    <span class="product-description">{{product.description}}</span>
+                </div>
+                <div class="product-footer">
+                    {% if product.discount > 0 %}
+                        <span class="product-price discount">{{product.price}}</span>
+                        <span class="product-discount">{{product.discount}}</span>
+                    {% else %}
+                        <span class="product-price">{{product.price}}</span>
+                    {% endif %}
+                    {{currency}}
+                </div>
             </div>
+        {% endfor %}       
+    </div>
+    <div class="product-footer">
+        {% if pagination|first > 1 %}
+            <span><a href="/product/{{currentLimit}}/{{currentPage - 1}}" class="pagination-page">{{currentPage - 1}}</a></span> 
+        {% endif %}
+        {% for page in pagination %}
+            <span><a href="/product/{{currentLimit}}/{{page}}" class="pagination-page {% if page == currentPage %}current-page{% endif %}">{{page}}</a></span> 
         {% endfor %}
+            <span>z {{numberOfPages}}</span>
     </div>
 </div>
 {% endblock %}
